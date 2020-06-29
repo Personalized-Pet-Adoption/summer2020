@@ -1,7 +1,7 @@
 # summer2020
 
 ## Weekly Meeting Time:
- Thursday Evening?
+ Thursday 8pm CDT
 
 ## Tools and Frameworks:
 - Front End: React
