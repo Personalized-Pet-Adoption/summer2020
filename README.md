@@ -1,5 +1,9 @@
 # summer2020
 
+## Project Description
+- MVP: ?
+- 
+
 ## Weekly Meeting Time:
  Thursday 8pm CDT
 
