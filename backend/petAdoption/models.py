@@ -1,11 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+
 class Pet(models.Model):
     name = models.CharField(max_length=64)
     desciption = models.TextField()
     breed = models.CharField(max_length=64)
-    address = models.CharField(max_length=200)
     postal_code = models.IntegerField()
     # use float or double?
     price = models.FloatField()
@@ -15,10 +15,15 @@ class Pet(models.Model):
     species = models.CharField(max_length=200)
     source_website = models.CharField(max_length=200)
     gender = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name
+
     # Many-to-one foreign key to User id
     # it should be user id
-    #TODO: uncomment this line after User class has been set
-    #owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    # TODO: uncomment this line after User class has been set
+    # owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 class Image(models.Model):
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
@@ -29,6 +34,7 @@ class Image(models.Model):
     # front end provide link or image?
     # image = models.CharField(max_length=200)
     image = models.ImageField(upload_to='images/')
+
 
 class Immune(models.Model):
     # TODO: for Yiping Zhong
@@ -45,3 +51,19 @@ class Immune(models.Model):
 #     ## django already has a User class built in that controls
 #     ## whether the user has authority to change or update specific database table
 #     pass
+
+
+class Adopter(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    favorites = models.ManyToManyField(Pet)
+
+    def __str__(self):
+        return self.user.username
+
+
+class Seller(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    pets_on_sale = models.ManyToManyField(Pet)
+
+    def __str__(self):
+        return self.user.username
