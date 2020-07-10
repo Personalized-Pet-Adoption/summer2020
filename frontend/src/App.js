@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { QuickSearch } from './Components/quick-search/quick-search.component';
 
 // function App() {
 //   return (
@@ -23,7 +24,7 @@ import './App.css';
 //   );
 // }
 
-class App extends Component{
+class App extends Components{
   constructor(){
     super();
     this.state={
@@ -44,8 +45,8 @@ class App extends Component{
     )
     return(
       <div className='App'>
-        <SearchBox placeholder='search pet' handleChange={this.handleChange}/>
-        <PetList pets={filteredPets}/>
+        <QuickSearch placeholder='search pet' handleChange={this.handleChange}/>
+        <pet-list pets={filteredPets}/>
       </div>
     )
   }
