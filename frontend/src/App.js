@@ -28,9 +28,12 @@ class App extends Component{
   constructor(){
     super();
     this.state={
-      pets:['cat','dog','rabbit','lu'],
+      pet:[{'id':1,'name':'lu',email:'tliu1@macalester.edu'},
+      {'id':2,'name':'huahua',email:'tliu1@macalester.edu'},
+      {'id':3,'name':'tianrui',email:'tliu1@macalester.edu'}],
       searchField:''
     };
+    
     this.handleChange=this.handleChange.bind(this);
   }
 
@@ -39,14 +42,14 @@ class App extends Component{
   };
 
   render(){
-    const {pets, searchField}=this.state;
-    const filteredPets=pets.filter(pet=>
+    const {pet, searchField}=this.state;
+    const filteredPet=pet.filter(pet=>
       pet.name.toLowerCase().includes(searchField.toLowerCase())
     )
     return(
       <div className='App'>
         <QuickSearch placeholder='search pet' handleChange={this.handleChange}/>
-        <pet-list pets={filteredPets}/>
+        <pet-list pet={filteredPet}/>
       </div>
     )
   }
