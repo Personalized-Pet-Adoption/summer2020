@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import Pet
 from .models import Immune
 from .models import Image
+from .models import Adopter
+from .models import Seller
 
 """
 Superuser already created:
@@ -10,6 +12,8 @@ Superuser already created:
 """
 
 # Register your models here.
+admin.site.register(Adopter)
+admin.site.register(Seller)
 admin.site.register(Pet)
 admin.site.register(Immune)
 admin.site.register(Image)

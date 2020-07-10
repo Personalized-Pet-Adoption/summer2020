@@ -1,28 +1,36 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.timezone import datetime
 
+
+## May refactor this to the accounts app
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+#     def __str__(self):
+#         return f'{self.user.name} Profile'
 
 class Pet(models.Model):
     name = models.CharField(max_length=64)
-    desciption = models.TextField()
-    breed = models.CharField(max_length=64)
-    postal_code = models.IntegerField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    desciption = models.TextField(blank=True)
+    species = models.CharField(max_length=64)
+    breed = models.CharField(max_length=64, blank=True)
+    postal_code = models.IntegerField(null=True, blank=True)
     # use float or double?
-    price = models.FloatField()
-    date = models.DateField()
-    birthday = models.DateField()
-    age = models.IntegerField()
-    species = models.CharField(max_length=200)
-    source_website = models.CharField(max_length=200)
+    price = models.FloatField(null= True, blank=True)
+    post_date = models.DateField(default=datetime.now)
+    birthday = models.DateField(null=True, blank=True)
+    # age can be infer
+    #age = models.IntegerField(blank=True)
+    source_website = models.CharField(max_length=200,blank=True)
     gender = models.CharField(max_length=64)
+    
 
     def __str__(self):
         return self.name
 
-    # Many-to-one foreign key to User id
-    # it should be user id
-    # TODO: uncomment this line after User class has been set
-    # owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    
 
 
 class Image(models.Model):
