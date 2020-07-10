@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { QuickSearch } from './Components/quick-search/quick-search.component';
