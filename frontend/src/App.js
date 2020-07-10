@@ -24,11 +24,11 @@ import { QuickSearch } from './Components/quick-search/quick-search.component';
 //   );
 // }
 
-class App extends Components{
+class App extends Component{
   constructor(){
     super();
     this.state={
-      pets:[],
+      pets:['cat','dog','rabbit','lu'],
       searchField:''
     };
     this.handleChange=this.handleChange.bind(this);
