@@ -1,28 +1,13 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { QuickSearch } from './Components/quick-search/quick-search.component';
+// import { Switch, Route } from 'react-router-dom';
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+import './App.css';
+import {QuickSearch} from './Components/quick-search/quick-search.component';
+
+
+// import HomePage from './pages/homepage/homepage.component';
+// import ShopPage from './pages/shop/shop.component.jsx';
+import Header from './Components/header/header.component.jsx';
 
 class App extends Component{
   constructor(){
@@ -46,13 +31,18 @@ class App extends Component{
     const filteredPet=pet.filter(pet=>
       pet.name.toLowerCase().includes(searchField.toLowerCase())
     )
-    return(
-      <div className='App'>
-        <QuickSearch placeholder='search pet' handleChange={this.handleChange}/>
-        <pet-list pet={filteredPet}/>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <Header />
+      <QuickSearch placeholder='search pet' handleChange={this.handleChange}/>
+
+      {/* <Switch> */}
+        {/* <Route exact path='/' component={HomePage} /> */}
+        {/* <Route path='/shop' component={ShopPage} /> */}
+      {/* </Switch> */}
+    </div>
+  );
+}
 }
 
 
