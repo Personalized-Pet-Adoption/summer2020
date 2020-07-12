@@ -1,6 +1,6 @@
 # from tradeboard.models import Post
 # from django.utils.lorem_ipsum import WORDS as lorem_words
-# from users.models import WishList
+# from models.models import WishList
 # from django.contrib.auth.models import User
 # import random
 # import string

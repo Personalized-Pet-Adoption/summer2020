@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Pet
-from .models import Immune
-from .models import Image
+
+from .models import *
+
 
 """
 Superuser already created:
@@ -9,7 +9,19 @@ Superuser already created:
     password: summer_2020_pet_admin_root
 """
 
-# Register your models here.
-admin.site.register(Pet)
-admin.site.register(Immune)
-admin.site.register(Image)
+myModels = [Pet, Immune, Image]
+admin.site.register(myModels)
+
+
+@admin.register(Adopter)
+class AdopterInline(admin.ModelAdmin):
+    model = Adopter
+
+
+@admin.register(Seller)
+class SellerInline(admin.ModelAdmin):
+    model = Seller
+
+
+
+
