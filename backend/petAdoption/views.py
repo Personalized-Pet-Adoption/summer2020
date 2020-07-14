@@ -34,10 +34,10 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 class PetViewSet(viewsets.ModelViewSet):
     """
-    List all pets (first 50, ordered by post date), 
-    or add a new pet.
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
     """
-    queryset = Pet.objects.order_by('-post_date')[:50]
+    queryset = Pet.objects.all()
     serializer_class = PetSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
@@ -45,11 +45,3 @@ class PetViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
 
-# Format
-
-# {
-#     "name": "abc",
-#     "species": "gg",
-#     "post_date": "2020-07-10",
-#     "gender": "Female"
-# }

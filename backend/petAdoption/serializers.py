@@ -20,4 +20,4 @@ class PetSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = Pet
-        fields = ['id', 'name', 'owner','species','price','post_date','gender']
+        fields = ['url','id', 'name', 'owner','species','price','post_date','gender']

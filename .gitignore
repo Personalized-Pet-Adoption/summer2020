@@ -4,3 +4,4 @@
 *.pyc
 *.pyc
 backend/petAdoption/__pycache__
+*.pyc
