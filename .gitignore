@@ -1,7 +1,7 @@
 
 .DS_Store
-*.pyc
-*.pyc
-*.pyc
-backend/petAdoption/__pycache__
-*.pyc
+backend/petAdoption/__pycache__/*.pyc
+.idea
+.vscode
+venv
+backend/petAdoption/migrations/*.py
