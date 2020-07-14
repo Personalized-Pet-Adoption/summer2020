@@ -2,14 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
-from .pet import Pet
 from .managers import CustomUserManager
-# TODO:
-# class User(models.Model):
-#     ## TODO: Shall we implement this????
-#     ## django already has a User class built in that controls
-#     ## whether the user has authority to change or update specific database table
-#     pass
+# from .pet import Pet
 
 
 class CustomUser(AbstractUser):
@@ -28,7 +22,7 @@ class CustomUser(AbstractUser):
 
 
 class Adopter(CustomUser):
-    favorites = models.ManyToManyField(Pet, blank=True)
+    # favorites = models.ManyToManyField(Pet, related_name='adopter', blank=True)
 
     def __str__(self):
         return self.username
@@ -39,7 +33,7 @@ class Adopter(CustomUser):
 
 
 class Seller(CustomUser):
-    pets_on_sale = models.ManyToManyField(Pet, blank=True)
+    # pets_on_sale = models.ManyToManyField(Pet, related_name='seller', blank=True)
 
     def __str__(self):
         return self.username

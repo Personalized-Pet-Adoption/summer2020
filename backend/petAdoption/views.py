@@ -1,11 +1,11 @@
 from .models import Pet
-from django.contrib.auth.models import User, Group
+# from django.contrib.auth.models import User, Group
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Pet
-from .serializers import PetSerializer, UserSerializer, GroupSerializer
+from .models import Pet, Seller
+from .serializers import PetSerializer, SellerSerializer
 from rest_framework import viewsets
 from rest_framework import generics
 
@@ -15,20 +15,20 @@ from rest_framework.decorators import action
 
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class SellerViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
+    queryset = Seller.objects.all().order_by('-date_joined')
+    serializer_class = SellerSerializer
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+# class GroupViewSet(viewsets.ModelViewSet):
+#     """
+#     API endpoint that allows groups to be viewed or edited.
+#     """
+#     queryset = Group.objects.all()
+#     serializer_class = GroupSerializer
 
 
 

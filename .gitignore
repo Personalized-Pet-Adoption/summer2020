@@ -1,6 +1,6 @@
 
 .DS_Store
-backend/petAdoption/__pycache__/*.pyc
+*.pyc 
 .idea
 .vscode
 venv

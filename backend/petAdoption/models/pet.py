@@ -1,10 +1,11 @@
 from django.db import models
 from django.utils.timezone import datetime
-from ..models.user import Seller
+from .user import Seller, Adopter
 
 class Pet(models.Model):
     name = models.CharField(max_length=64)
-    owner = models.ForeignKey(Seller, on_delete=models.CASCADE)
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='pets')
+    liked_adopters = models.ManyToManyField(Adopter, related_name='pet_adopter', blank=True)
     species = models.CharField(max_length=64)
     description = models.TextField(blank=True)
     breed = models.CharField(max_length=64, blank=True)
