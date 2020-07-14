@@ -1,28 +1,25 @@
 from django.db import models
-
+from django.utils.timezone import datetime
+from ..models.user import Seller
 
 class Pet(models.Model):
     name = models.CharField(max_length=64)
-    description = models.TextField()
-    breed = models.CharField(max_length=64)
-    postal_code = models.IntegerField()
-    # use float or double?
-    price = models.FloatField()
-    date = models.DateField()
-    birthday = models.DateField()
-    age = models.IntegerField()
-    species = models.CharField(max_length=200)
-    source_website = models.CharField(max_length=200)
+    owner = models.ForeignKey(Seller, on_delete=models.CASCADE)
+    species = models.CharField(max_length=64)
+    description = models.TextField(blank=True)
+    breed = models.CharField(max_length=64, blank=True)
+    postal_code = models.IntegerField(null=True, blank=True)
+    price = models.FloatField(null=True, blank=True)
+    post_date = models.DateField(default=datetime.now)
+    birthday = models.DateField(null=True, blank=True)
+    # age can be infer
+    #age = models.IntegerField(blank=True)
+    source_website = models.CharField(max_length=200,blank=True)
     gender = models.CharField(max_length=64)
     weight = models.FloatField(null=True)
 
     def __str__(self):
         return self.name
-
-    # Many-to-one foreign key to User id
-    # it should be user id
-    # TODO: uncomment this line after User class has been set
-    # owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Image(models.Model):
