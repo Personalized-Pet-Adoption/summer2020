@@ -6,10 +6,10 @@ from .models import Pet
 
 
 class UserSerializer(serializers.ModelSerializer):
-    # pets = serializers.PrimaryKeyRelatedField(many=True, queryset=Pet.objects.all())
+    pets = serializers.PrimaryKeyRelatedField(many=True, queryset=Pet.objects.all())
     class Meta:
         model = User
-        fields = ['url', 'id', 'username' ,'groups']
+        fields = ['url', 'id', 'username' ,'groups', 'pets']
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -17,7 +17,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 class PetSerializer(serializers.ModelSerializer):
-    owner_id = serializers.PrimaryKeyRelatedField(read_only=True)
+    owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = Pet
-        fields = ['id', 'name', 'owner_id','species', 'breed', 'postal_code','price','post_date','birthday','source_website','gender']
+        fields = ['id', 'name', 'owner','species','price','post_date','gender']

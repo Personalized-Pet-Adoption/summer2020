@@ -12,18 +12,11 @@ from django.utils.timezone import datetime
 
 class Pet(models.Model):
     name = models.CharField(max_length=64)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    desciption = models.TextField(blank=True)
+    owner = models.ForeignKey('auth.User', related_name='pets', on_delete=models.CASCADE)
     species = models.CharField(max_length=64)
-    breed = models.CharField(max_length=64, blank=True)
-    postal_code = models.IntegerField(null=True, blank=True)
     # use float or double?
     price = models.FloatField(null= True, blank=True)
     post_date = models.DateField(default=datetime.now)
-    birthday = models.DateField(null=True, blank=True)
-    # age can be infer
-    #age = models.IntegerField(blank=True)
-    source_website = models.CharField(max_length=200,blank=True)
     gender = models.CharField(max_length=64)
     
 
