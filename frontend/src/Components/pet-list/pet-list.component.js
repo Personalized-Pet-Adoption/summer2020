@@ -5,7 +5,7 @@ import {Pet} from '../pet/pet.component';
 export const PetList = props => {
     console.log(props);
 return (<div className = 'pet-list'>{
-    props.Pet.map(pet => 
+    props.pets.map(pet => 
       <Pet key={pet.id} pet = {pet}> {pet.name} </Pet>)
     } 
     </div>)

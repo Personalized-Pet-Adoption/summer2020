@@ -3,10 +3,10 @@ import './pet.styles.css';
 
 export const Pet = props =>(
     <div className = 'pet-container'>
-        <img alt = "pet" src={`https://www.pexels.com/search/pet/?set=set2&size=180x180`} />
+        <img alt = "pet" src={`https://s3-eu-west-1.amazonaws.com/w3.cdn.gpd/gb.pedigree.55/large_53b66497-3a2d-420c-a567-b1e0ae5c5823.jpg`} />
         <h2>
-            {props.Pet}
+            {props.pet.name}
         </h2>
-        <p>{props.Pet.name}</p> 
+        <p>{props.pet.name}</p> 
     </div>
 );

@@ -1,8 +1,9 @@
 .pet-container {
     display: flex;
     flex-direction: column;
-    background-color: #95dada;
-    border: 1px solid grey;
+    background-color: papayawhip;
+    border: 1px transparent grey;
+    box-shadow: grey;
     border-radius: 5px;
     padding: 25px;
     cursor: pointer;
