@@ -8,7 +8,8 @@ import {QuickSearch} from './Components/quick-search/quick-search.component';
 // import HomePage from './pages/homepage/homepage.component';
 // import ShopPage from './pages/shop/shop.component.jsx';
 import Header from './Components/header/header.component.jsx';
-
+import AdvanceSearch from './Components/advance-search/advance-search.component';
+import NavBar from './Components/navigation-bar/navigation-bar.component';
 class App extends Component{
   constructor(){
     super();
@@ -34,6 +35,8 @@ class App extends Component{
   return (
     <div>
       <Header />
+      <AdvanceSearch />
+      <NavBar />
       <QuickSearch placeholder='search pet' handleChange={this.handleChange}/>
 
       {/* <Switch> */}
