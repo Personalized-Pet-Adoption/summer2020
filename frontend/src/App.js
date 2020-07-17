@@ -1,26 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+// import { Switch, Route } from 'react-router-dom';
 
-function App() {
+import './App.css';
+import {QuickSearch} from './Components/quick-search/quick-search.component';
+import {PetList} from './Components/pet-list/pet-list.component'
+import ShopPage from './pages/shop/shop.component.jsx';
+
+
+// import HomePage from './pages/homepage/homepage.component';
+// import ShopPage from './pages/shop/shop.component.jsx';
+import Header from './Components/header/header.component.jsx';
+
+class App extends Component{
+  constructor(){
+    super();
+    this.state={
+      pet:[{'id':1,'name':'lu',email:'tliu1@macalester.edu'},
+      {'id':2,'name':'huahua',email:'tliu1@macalester.edu'},
+      {'id':3,'name':'tianrui',email:'tliu1@macalester.edu'}],
+      searchField:''
+    };
+    
+    this.handleChange=this.handleChange.bind(this);
+  }
+  componentDidMount(){
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response=>response.json())
+    .then(users=>this.setState({monsters:users}));
+  }
+  handleChange=(e)=>{
+    this.setState({searchField:e.target.value});
+  };
+
+  render(){
+    const {pet, searchField}=this.state;
+    const filteredPet=pet.filter(pet=>
+      pet.name.toLowerCase().includes(searchField.toLowerCase())
+    )
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+        <QuickSearch 
+          placeholder='search pet' 
+          handleChange={this.handleChange}
+        />
+      <PetList pets = {filteredPet} />
     </div>
   );
 }
+}
+
+
 
 export default App;
