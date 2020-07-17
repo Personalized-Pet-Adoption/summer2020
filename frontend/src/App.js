@@ -43,7 +43,6 @@ class App extends Component{
       <Header />
       <AdvanceSearch />
       <NavBar />
-      <QuickSearch placeholder='search pet' handleChange={this.handleChange}/>
 
       {/* <Switch> */}
         {/* <Route exact path='/' component={HomePage} /> */}

@@ -1,6 +1,6 @@
 .pet-list {
     width: 15vw;
-    margin:  30 auto;
+    margin:  5vw;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 120px;
