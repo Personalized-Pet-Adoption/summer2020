@@ -1,18 +1,6 @@
-from .models import Pet
-# from django.contrib.auth.models import User, Group
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from .models import Pet, Seller
-from .serializers import PetSerializer, SellerSerializer
+from .serializers import *
 from rest_framework import viewsets
-from rest_framework import generics
-
 from rest_framework import permissions
-from rest_framework.decorators import action
-# Create your APIs here.
-
 
 
 class SellerViewSet(viewsets.ModelViewSet):
@@ -23,13 +11,9 @@ class SellerViewSet(viewsets.ModelViewSet):
     serializer_class = SellerSerializer
 
 
-# class GroupViewSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows groups to be viewed or edited.
-#     """
-#     queryset = Group.objects.all()
-#     serializer_class = GroupSerializer
-
+class AdopterViewSet(viewsets.ModelViewSet):
+    queryset = Adopter.objects.all().order_by('-date_joined')
+    serializer_class = AdopterSerializer
 
 
 class PetViewSet(viewsets.ModelViewSet):

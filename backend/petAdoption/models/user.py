@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
 from .managers import CustomUserManager
-# from .pet import Pet
 
 
 class CustomUser(AbstractUser):
@@ -22,7 +21,6 @@ class CustomUser(AbstractUser):
 
 
 class Adopter(CustomUser):
-    # favorites = models.ManyToManyField(Pet, related_name='adopter', blank=True)
 
     def __str__(self):
         return self.username
@@ -33,7 +31,6 @@ class Adopter(CustomUser):
 
 
 class Seller(CustomUser):
-    # pets_on_sale = models.ManyToManyField(Pet, related_name='seller', blank=True)
 
     def __str__(self):
         return self.username

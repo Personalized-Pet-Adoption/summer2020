@@ -2,10 +2,11 @@ from django.db import models
 from django.utils.timezone import datetime
 from .user import Seller, Adopter
 
+
 class Pet(models.Model):
     name = models.CharField(max_length=64)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='pets')
-    liked_adopters = models.ManyToManyField(Adopter, related_name='pet_adopter', blank=True)
+    liked_adopters = models.ManyToManyField(Adopter, related_name='favorites', blank=True)
     species = models.CharField(max_length=64)
     description = models.TextField(blank=True)
     breed = models.CharField(max_length=64, blank=True)
@@ -13,8 +14,6 @@ class Pet(models.Model):
     price = models.FloatField(null=True, blank=True)
     post_date = models.DateField(default=datetime.now)
     birthday = models.DateField(null=True, blank=True)
-    # age can be infer
-    #age = models.IntegerField(blank=True)
     source_website = models.CharField(max_length=200,blank=True)
     gender = models.CharField(max_length=64)
     weight = models.FloatField(null=True)
