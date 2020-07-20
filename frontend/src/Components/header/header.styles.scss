@@ -1,0 +1,30 @@
+.header {
+  height: 480px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  background-color: white;
+  background-image: url("../../images/bgpic3.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  .logo-container {
+    height: 100%;
+    width: 70px;
+    // padding: 25px;
+  }
+
+  .options {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .option {
+      padding: 10px 15px;
+    }
+  }
+}

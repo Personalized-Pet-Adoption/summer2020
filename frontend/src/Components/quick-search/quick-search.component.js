@@ -7,3 +7,4 @@ export const QuickSearch=({placeholder,handleChange})=>(<input
     type='search' 
     placeholder={placeholder} 
     onChange={handleChange}/>)
+    
