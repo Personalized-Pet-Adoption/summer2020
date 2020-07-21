@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.timezone import datetime
-from .user import Seller, Adopter
-
+from accounts.models import Seller, Adopter
 
 class Pet(models.Model):
     name = models.CharField(max_length=64)

@@ -17,16 +17,17 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from petAdoption import views
-
+from accounts.views import AuthViewSet
 
 router = routers.DefaultRouter()
 router.register(r'seller', views.SellerViewSet)
 router.register(r'pets', views.PetViewSet)
 router.register(r'adopters', views.AdopterViewSet)
+router.register('api/auth', AuthViewSet, basename='auth')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 

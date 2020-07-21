@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from accounts.models import *
 
 
 class PetSerializer(serializers.ModelSerializer):
