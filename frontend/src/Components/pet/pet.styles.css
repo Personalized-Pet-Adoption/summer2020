@@ -1,5 +1,5 @@
 .pet-container {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     background-color: papayawhip;
     border: 1px transparent grey;

@@ -1,8 +1,8 @@
 .pet-list {
     width: 15vw;
-    margin:  30 auto;
+    margin-left:  60px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 120px;
+    grid-gap: 8px;
   }
   
