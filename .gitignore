@@ -4,4 +4,6 @@
 .idea
 .vscode
 venv
-backend/petAdoption/migrations/*.py
+/backend/env/
+/node_modules/
+/backend/petAdoption/migrations/
