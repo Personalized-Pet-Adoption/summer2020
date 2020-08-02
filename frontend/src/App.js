@@ -16,9 +16,8 @@ import {PetList} from './Components/pet-list/pet-list.component'
 import ShopPage from './pages/shop/shop.component.jsx';
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
-import 'antd/dist/antd.css';
-import { DatePicker } from 'antd';
-import { Row, Col } from 'antd';
+// import { DatePicker } from 'antd';
+// import { Row, Col } from 'antd';
 import Header from './Components/header/header.component.jsx';
 
 // import AdvanceSearch from './Components/advance-search/advance-search.component';
@@ -67,11 +66,11 @@ class App extends Component{
       <Nav.Link href="#link">Link</Nav.Link> */}
     </Nav>
     <Container>
-  <Row>
+  {/* <Row>
     <Col xs={6} md={4}>
       <Image style={{width:"3rem"}} src="https://s3-eu-west-1.amazonaws.com/w3.cdn.gpd/gb.pedigree.55/large_53b66497-3a2d-420c-a567-b1e0ae5c5823.jpg" roundedCircle />
     </Col>
-  </Row>
+  </Row> */}
 </Container>
     <NavDropdown title="My username" id="basic-nav-dropdown">
         <NavDropdown.Item href="#action/3.1">My favorites</NavDropdown.Item>
