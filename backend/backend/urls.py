@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from petAdoption import views
-from accounts.views import AuthViewSet
+from accounts.views import AuthViewSet, sample_api
 
 router = routers.DefaultRouter()
 router.register(r'seller', views.SellerViewSet)
@@ -28,6 +28,7 @@ router.register('api/auth', AuthViewSet, basename='auth')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('api/sampleapi', sample_api)
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 

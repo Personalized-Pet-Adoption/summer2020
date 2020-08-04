@@ -11,19 +11,19 @@ class CustomUserManager(BaseUserManager):
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """
-    def create_user(self, email, password, first_name, last_name,  **extra_fields):
+    def create_user(self, email, password, first_name, last_name, is_adopter, is_seller, **extra_fields):
         """
         Create and save a User with the given email and password.
         """
         if not email:
             raise ValueError(_('The Email must be set'))
         email = self.normalize_email(email)
-        user = self.model(email=email,first_name=first_name, last_name=last_name, **extra_fields)
+        user = self.model(email=email,first_name=first_name, last_name=last_name, is_adopter=is_adopter, is_seller=is_seller, **extra_fields)
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, email, password,  first_name='', last_name='', is_adopter=False, is_seller=False, **extra_fields):
         """
         Create and save a SuperUser with the given email and password.
         """
@@ -35,7 +35,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('Superuser must have is_staff=True.'))
         if extra_fields.get('is_superuser') is not True:
             raise ValueError(_('Superuser must have is_superuser=True.'))
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(email, password, first_name, last_name, is_adopter, is_seller, **extra_fields)
 
 class CustomUser(AbstractUser):
     username = None
@@ -46,6 +46,10 @@ class CustomUser(AbstractUser):
                                  null=False)
     photo = models.ImageField(blank=True)
 
+
+    is_adopter = models.BooleanField('adopter status', default=False)
+    is_seller = models.BooleanField('seller status', default=False)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
@@ -54,10 +58,12 @@ class CustomUser(AbstractUser):
         return f"{self.email} - {self.first_name} {self.last_name}"
 
 
-class Adopter(CustomUser):
+class Adopter(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
+    # add more fields specifically associated with adoptes
 
     def __str__(self):
-        return f"{self.email} - {self.first_name} {self.last_name}"
+        return f"{self.user.email} - {self.user.first_name} {self.user.last_name}"
 
     class Meta:
         verbose_name = 'Adopter'
@@ -66,10 +72,12 @@ class Adopter(CustomUser):
 ## Seller and Adopter differentiates by permission class
 ## We need to set the view permission of backend services
 
-class Seller(CustomUser):
+class Seller(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
+    # add more fields here specifically associated with sellers
 
     def __str__(self):
-        return f"{self.email} - {self.first_name} {self.last_name}"
+        return f"{self.user.email} - {self.user.first_name} {self.user.last_name}"
 
     class Meta:
         verbose_name = 'Seller'

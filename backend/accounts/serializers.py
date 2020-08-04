@@ -5,28 +5,39 @@ from rest_framework import serializers
 
 User = get_user_model()
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'is_superuser' ,'auth_token', 'user_permissions', 'date_joined', 'photo')
+        read_only_fields = ('id', 'is_active', 'is_staff', 'is_superuser', 'auth_token', 'user_permissions', 'date_joined')
+    # email = serializers.EmailField()
+    # first_name = serializers.CharField(max_length=100)
+    # last_name =serializers.CharField(max_length=100)
+
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=300, required=True)
     password = serializers.CharField(required=True, write_only=True)
 
 
-class AuthLoginSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
          model = User
         #  fields = '__all__'
-         fields = ('id', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'is_superuser' ,'auth_token', 'user_permissions', 'date_joined', 'photo')
-         read_only_fields = ('id', 'is_active', 'is_staff', 'is_superuser', 'auth_token', 'user_permissions', 'date_joined')
+         fields = ('id', 'email', 'first_name', 'last_name', 'is_adopter', 'is_seller','is_active', 'is_staff', 'is_superuser' ,'auth_token', 'user_permissions', 'date_joined', 'photo')
+         read_only_fields = ('id', 'is_adopter', 'is_seller','is_active', 'is_staff', 'is_superuser', 'auth_token', 'user_permissions', 'date_joined')
 
 class AuthUserSerializer(serializers.ModelSerializer):
     auth_token = serializers.SerializerMethodField()
 
     class Meta:
          model = User
-         fields = ('id', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'is_superuser' ,'auth_token')
-         read_only_fields = ('id', 'is_active', 'is_staff', 'is_superuser', 'auth_token')
+         fields = ('id', 'email', 'first_name', 'last_name', 'is_adopter', 'is_seller', 'is_active', 'is_staff', 'is_superuser' ,'auth_token')
+         read_only_fields = ('id', 'is_adopter', 'is_seller','is_active', 'is_staff', 'is_superuser', 'auth_token')
     
     def get_auth_token(self, obj):
+        # print(111)
         token = Token.objects.create(user=obj)
+        # print(111)
         return token.key
 
 class EmptySerializer(serializers.Serializer):
