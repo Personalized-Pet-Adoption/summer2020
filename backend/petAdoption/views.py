@@ -1,19 +1,7 @@
 from .serializers import *
 from rest_framework import viewsets
 from rest_framework import permissions
-
-
-class SellerViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = Seller.objects.all().order_by('-date_joined')
-    serializer_class = SellerSerializer
-
-
-class AdopterViewSet(viewsets.ModelViewSet):
-    queryset = Adopter.objects.all().order_by('-date_joined')
-    serializer_class = AdopterSerializer
+from rest_framework.authentication import TokenAuthentication
 
 
 class PetViewSet(viewsets.ModelViewSet):
@@ -23,9 +11,6 @@ class PetViewSet(viewsets.ModelViewSet):
     """
     queryset = Pet.objects.all()
     serializer_class = PetSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializer):
-        serializer.save()
 
 

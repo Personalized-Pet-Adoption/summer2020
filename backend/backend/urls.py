@@ -17,18 +17,23 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from petAdoption import views
-from accounts.views import AuthViewSet, sample_api
+from accounts.views import AuthViewSet, sample_api, UserViewSet, SellerViewSet
 
 router = routers.DefaultRouter()
-router.register(r'seller', views.SellerViewSet)
+# router.register(r'seller', views.SellerViewSet)
 router.register(r'pets', views.PetViewSet)
-router.register(r'adopters', views.AdopterViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'seller_profile', SellerViewSet)
 router.register('api/auth', AuthViewSet, basename='auth')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api/sampleapi', sample_api)
-    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api/sampleapi', sample_api),
+    #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    #url('api/auth/', include('rest_auth.urls')),
+    #url('api/auth/registration/', include('rest_auth.registration.urls')),
+    #url(r'^account/', include('allauth.urls')),
+    # url(r'^accounts-rest/registration/account-confirm-email/(?P<key>.+)/$', confirm_email, name='account_confirm_email'),
 ]
 

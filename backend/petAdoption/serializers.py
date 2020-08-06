@@ -1,27 +1,16 @@
 from rest_framework import serializers
 from .models import *
 from accounts.models import *
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class PetSerializer(serializers.ModelSerializer):
-    seller = serializers.PrimaryKeyRelatedField(queryset=Seller.objects.all())
+    seller = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all())
 
     class Meta:
         model = Pet
         fields = ['url','id', 'name', 'seller','species','price','post_date','gender']
 
 
-class SellerSerializer(serializers.HyperlinkedModelSerializer):
-    pets = serializers.PrimaryKeyRelatedField(many=True, queryset=Pet.objects.all())
 
-    class Meta:
-        model = Seller
-        fields = ['url', 'id', 'email', 'pets']
-
-
-class AdopterSerializer(serializers.HyperlinkedModelSerializer):
-    favorites = serializers.PrimaryKeyRelatedField(many=True, queryset=Pet.objects.all())
-
-    class Meta:
-        model = Adopter
-        fields = ['url', 'id', 'email', 'favorites']

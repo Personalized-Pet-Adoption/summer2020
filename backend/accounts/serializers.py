@@ -2,37 +2,39 @@ from django.contrib.auth import get_user_model, password_validation
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import BaseUserManager
 from rest_framework import serializers
+from .models import Seller
+from petAdoption.models.pet import Pet
 
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
+    seller_profile = serializers.PrimaryKeyRelatedField(queryset=Seller.objects.all())
     class Meta:
-        model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'is_superuser' ,'auth_token', 'user_permissions', 'date_joined', 'photo')
-        read_only_fields = ('id', 'is_active', 'is_staff', 'is_superuser', 'auth_token', 'user_permissions', 'date_joined')
-    # email = serializers.EmailField()
-    # first_name = serializers.CharField(max_length=100)
-    # last_name =serializers.CharField(max_length=100)
+         model = User
+         fields = ['url','id', 'email', 'first_name', 'last_name', 'is_seller', 'seller_profile' ,'is_active', 'is_staff', 'is_superuser' ,'auth_token', 'user_permissions', 'date_joined', 'photo']
+
+class SellerSerializer(serializers.ModelSerializer):
+    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    pets = serializers.PrimaryKeyRelatedField(many=True, queryset=Pet.objects.all())
+    class Meta:
+        model = Seller
+        fields=['pk','user_id', 'pets']
+
+class ActivateSellerSerializer(serializers.Serializer):
+    email = serializers.CharField(max_length=300, required=True)
+
 
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=300, required=True)
     password = serializers.CharField(required=True, write_only=True)
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-         model = User
-        #  fields = '__all__'
-         fields = ('id', 'email', 'first_name', 'last_name', 'is_adopter', 'is_seller','is_active', 'is_staff', 'is_superuser' ,'auth_token', 'user_permissions', 'date_joined', 'photo')
-         read_only_fields = ('id', 'is_adopter', 'is_seller','is_active', 'is_staff', 'is_superuser', 'auth_token', 'user_permissions', 'date_joined')
 
 class AuthUserSerializer(serializers.ModelSerializer):
     auth_token = serializers.SerializerMethodField()
 
     class Meta:
          model = User
-         fields = ('id', 'email', 'first_name', 'last_name', 'is_adopter', 'is_seller', 'is_active', 'is_staff', 'is_superuser' ,'auth_token')
-         read_only_fields = ('id', 'is_adopter', 'is_seller','is_active', 'is_staff', 'is_superuser', 'auth_token')
+         fields = ('id', 'email', 'first_name', 'last_name', 'is_seller', 'is_active', 'is_staff', 'is_superuser' ,'auth_token')
+         read_only_fields = ('id', 'is_seller','is_active', 'is_staff', 'is_superuser', 'auth_token')
     
     def get_auth_token(self, obj):
         # print(111)
@@ -50,7 +52,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'password', 'first_name', 'last_name')
+        fields = ('id', 'email', 'password', 'first_name', 'last_name', 'is_seller')
 
     def validate_email(self, value):
         user = User.objects.filter(email=value)
@@ -75,5 +77,5 @@ class PasswordChangeSerializer(serializers.Serializer):
         return value
 
     def validate_new_password(self, value):
-        password_validation.validate_password(value)
+        password_validaythtion.validate_password(value)
         return value

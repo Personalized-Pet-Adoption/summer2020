@@ -5,14 +5,15 @@ from django.core.exceptions import ImproperlyConfigured
 from rest_framework import viewsets, status
 # from rest_framework.decorators import action
 from rest_framework.decorators import api_view, permission_classes, action
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from django.views.decorators.csrf import csrf_exempt
 # from rest_framework.decorators import api_view, permission_classes
 
 from . import serializers
-from .utils import get_and_authenticate_user, create_adopter_account, create_seller_account
+from .utils import get_and_authenticate_user, create_account, activate_seller
+from .models import Seller
 
 User = get_user_model()
 
@@ -23,27 +24,24 @@ def sample_api(request):
     data = {'sample_data': 123}
     return Response(data, status=status.HTTP_200_OK)
 
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('date_joined')
+    serializer_class = serializers.UserSerializer
+
+class SellerViewSet(viewsets.ModelViewSet):
+    queryset = Seller.objects.all()
+    serializer_class = serializers.SellerSerializer
+
 class AuthViewSet(viewsets.GenericViewSet):
     queryset=User.objects.all()
-    permission_classes = [AllowAny, ]
+    permission_classes = [AllowAny,]
     serializer_class = serializers.EmptySerializer
     serializer_classes = {
         'login': serializers.UserLoginSerializer,
-        'adopter_register': serializers.UserRegisterSerializer,
-        'seller_register': serializers.UserRegisterSerializer,
+        'register': serializers.UserRegisterSerializer,
+        'activate_seller': serializers.ActivateSellerSerializer,
         'password_change': serializers.PasswordChangeSerializer,
     }
-
-
-    # add permission here
-    # only superuser can view (me) for development purpose
-    # And This whole thing should be move to another ViewSet that is only privately accessible
-    def list(self, request):
-        queryset = User.objects.all()
-        permission_classes = []
-        # print(queryset)
-        serializer = serializers.UserSerializer(queryset, many=True)
-        return Response(serializer.data)
 
     @action(methods=['POST', ], detail=False)
     def login(self, request):
@@ -52,23 +50,29 @@ class AuthViewSet(viewsets.GenericViewSet):
         user = get_and_authenticate_user(**serializer.validated_data)
         data = serializers.AuthUserSerializer(user).data
         # return token
-        return Response(data={'token': data["auth_token"]}, status=status.HTTP_200_OK)
+        return Response(data=data, status=status.HTTP_200_OK)
 
     @action(methods=['POST', ], detail=False)
-    def adopter_register(self, request):
+    def register(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = create_adopter_account(**serializer.validated_data)
+        user = create_account(**serializer.validated_data)
         # data = serializers.AuthUserSerializer(user).data
         return Response(status=status.HTTP_201_CREATED)
     
-    @action(methods=['POST', ], detail=False)
-    def seller_register(self, request):
+    @action(methods=['POST', ], detail=False, permission_classes=[IsAuthenticated, ])
+    def activate_seller(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = create_seller_account(**serializer.validated_data)
+        user = activate_seller(request.data["email"])
+        # user = create_seller_account(**serializer.validated_data)
         # data = serializers.AuthUserSerializer(user).data
         return Response(status=status.HTTP_201_CREATED)
+
+    @action(methods=['DELETE', ], detail=False, permission_classes=[IsAuthenticated, ])
+    def deactivate_seller(self, request):
+        # TODO
+        pass
 
     @action(methods=['POST', ], detail=False, permission_classes=[IsAuthenticated, ])
     def logout(self, request):

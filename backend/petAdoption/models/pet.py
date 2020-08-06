@@ -1,17 +1,21 @@
 from django.db import models
-from django.utils.timezone import datetime
-from accounts.models import Seller, Adopter
+# from django.utils.timezone import datetime
+import datetime
+from accounts.models import Seller
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Pet(models.Model):
     name = models.CharField(max_length=64)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='pets')
-    liked_adopters = models.ManyToManyField(Adopter, related_name='favorites', blank=True)
+    liked_adopters = models.ManyToManyField(User, related_name='favorites', blank=True)
     species = models.CharField(max_length=64)
     description = models.TextField(blank=True)
     breed = models.CharField(max_length=64, blank=True)
     postal_code = models.IntegerField(null=True, blank=True)
     price = models.FloatField(null=True, blank=True)
-    post_date = models.DateField(default=datetime.now)
+    post_date = models.DateField(default=datetime.date.today)
     birthday = models.DateField(null=True, blank=True)
     source_website = models.CharField(max_length=200,blank=True)
     gender = models.CharField(max_length=64)
