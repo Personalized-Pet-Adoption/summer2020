@@ -62,6 +62,10 @@ class CustomUser(AbstractUser):
 class Seller(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True, related_name='seller_profile')
     # add more fields here specifically associated with sellers
+    name = models.CharField('First Name', max_length=255, blank=True,
+                                  null=True)
+    company_address = models.CharField('First Name', max_length=255, blank=True,
+                                  null=True)
 
     def __str__(self):
         return self.user.email
