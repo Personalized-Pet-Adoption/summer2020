@@ -8,7 +8,6 @@ from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
-from django.views.decorators.csrf import csrf_exempt
 # from rest_framework.decorators import api_view, permission_classes
 
 from . import serializers
@@ -17,12 +16,6 @@ from .models import Seller
 
 User = get_user_model()
 
-@csrf_exempt
-@api_view(["GET"])
-# @permission_classes((IsAuthenticated))
-def sample_api(request):
-    data = {'sample_data': 123}
-    return Response(data, status=status.HTTP_200_OK)
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('date_joined')
@@ -31,6 +24,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class SellerViewSet(viewsets.ModelViewSet):
     queryset = Seller.objects.all()
     serializer_class = serializers.SellerSerializer
+    
 
 class AuthViewSet(viewsets.GenericViewSet):
     queryset=User.objects.all()
@@ -65,6 +59,7 @@ class AuthViewSet(viewsets.GenericViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = activate_seller(request.data["email"])
+        print(999)
         # user = create_seller_account(**serializer.validated_data)
         # data = serializers.AuthUserSerializer(user).data
         return Response(status=status.HTTP_201_CREATED)

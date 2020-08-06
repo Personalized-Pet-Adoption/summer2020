@@ -4,6 +4,7 @@ from django.contrib.auth.models import BaseUserManager
 from rest_framework import serializers
 from .models import Seller
 from petAdoption.models.pet import Pet
+from petAdoption.serializers import PetSerializer
 
 User = get_user_model()
 
@@ -14,11 +15,14 @@ class UserSerializer(serializers.ModelSerializer):
          fields = ['url','id', 'email', 'first_name', 'last_name', 'is_seller', 'seller_profile' ,'is_active', 'is_staff', 'is_superuser' ,'auth_token', 'user_permissions', 'date_joined', 'photo']
 
 class SellerSerializer(serializers.ModelSerializer):
-    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    user = UserSerializer(instance=User.objects.all())
+    # user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     pets = serializers.PrimaryKeyRelatedField(many=True, queryset=Pet.objects.all())
+    # print(PetSerializer(instance=Pet.objects.all()))
+    # pets = PetSerializer(instance=Pet.objects.all()[0])
     class Meta:
         model = Seller
-        fields=['pk','user_id', 'pets']
+        fields=['pk','user', 'pets']
 
 class ActivateSellerSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=300, required=True)
