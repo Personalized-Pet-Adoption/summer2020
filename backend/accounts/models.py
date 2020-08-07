@@ -37,6 +37,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('Superuser must have is_superuser=True.'))
         return self.create_user(email, password, is_seller, **extra_fields)
 
+
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
@@ -45,12 +46,12 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
-    
+
     first_name = models.CharField('First Name', max_length=255, blank=True,
                                   null=True)
     last_name = models.CharField('Last Name', max_length=255, blank=True,
                                  null=True)
-    photo = models.ImageField(blank=True)
+    photo = models.FileField(blank=True, upload_to='user')
 
     is_seller = models.BooleanField('seller status', default=False)
 

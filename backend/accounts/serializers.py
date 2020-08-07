@@ -24,6 +24,7 @@ class SellerSerializer(serializers.ModelSerializer):
         model = Seller
         fields=['pk','user', 'pets']
 
+
 class ActivateSellerSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=300, required=True)
 
@@ -37,7 +38,7 @@ class AuthUserSerializer(serializers.ModelSerializer):
 
     class Meta:
          model = User
-         fields = ('id', 'email', 'first_name', 'last_name', 'is_seller', 'is_active', 'is_staff', 'is_superuser' ,'auth_token')
+         fields = ('id', 'email', 'first_name', 'last_name', 'is_seller', 'is_active', 'is_staff', 'is_superuser', 'auth_token')
          read_only_fields = ('id', 'is_seller','is_active', 'is_staff', 'is_superuser', 'auth_token')
     
     def get_auth_token(self, obj):
@@ -56,7 +57,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'password', 'first_name', 'last_name', 'is_seller')
+        fields = ('id', 'email', 'password', 'first_name', 'last_name', 'photo')
 
     def validate_email(self, value):
         user = User.objects.filter(email=value)
@@ -81,5 +82,5 @@ class PasswordChangeSerializer(serializers.Serializer):
         return value
 
     def validate_new_password(self, value):
-        password_validaythtion.validate_password(value)
+        password_validation.validate_password(value)
         return value
