@@ -7,3 +7,4 @@ venv
 /backend/env/
 /node_modules/
 /backend/petAdoption/migrations/
+backend/mydatabase
