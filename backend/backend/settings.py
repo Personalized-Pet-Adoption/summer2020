@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
     'petAdoption',
-    'accounts'
+    'accounts',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -135,3 +141,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'pet-adoption-photo'

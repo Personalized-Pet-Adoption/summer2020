@@ -18,7 +18,7 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError(_('The Email must be set'))
         email = self.normalize_email(email)
-        user = self.model(email=email,first_name=first_name, last_name=last_name, is_adopter=is_adopter, is_seller=is_seller, **extra_fields)
+        user = self.model(email=email, first_name=first_name, last_name=last_name, is_adopter=is_adopter, is_seller=is_seller, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -44,7 +44,7 @@ class CustomUser(AbstractUser):
                                   null=False)
     last_name = models.CharField('Last Name', max_length=255, blank=True,
                                  null=False)
-    photo = models.ImageField(blank=True)
+    photo = models.FileField(blank=True, upload_to='user')
 
 
     is_adopter = models.BooleanField('adopter status', default=False)

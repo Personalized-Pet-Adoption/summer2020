@@ -50,7 +50,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'password', 'first_name', 'last_name')
+        fields = ('id', 'email', 'password', 'first_name', 'last_name', 'photo')
 
     def validate_email(self, value):
         user = User.objects.filter(email=value)
