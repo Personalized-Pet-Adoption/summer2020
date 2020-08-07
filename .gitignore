@@ -4,7 +4,8 @@
 .idea
 .vscode
 venv
-/backend/env/
 /node_modules/
 /backend/petAdoption/migrations/
 backend/mydatabase
+/backend/env/
+/backend/accounts/migrations/
