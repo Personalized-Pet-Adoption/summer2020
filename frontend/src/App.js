@@ -9,38 +9,44 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import './App.css';
 import Container from 'react-bootstrap/Container';
-import Image from 'react-bootstrap/Image';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {QuickSearch} from './Components/quick-search/quick-search.component';
 import {PetList} from './Components/pet-list/pet-list.component'
 import ShopPage from './pages/shop/shop.component.jsx';
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
+import { Route,Link, Switch, BrowserRouter, Router} from 'react-router-dom';
+// import { Link } from 'react-router';
 // import { DatePicker } from 'antd';
 // import { Row, Col } from 'antd';
 import Header from './Components/header/header.component.jsx';
 
-// import AdvanceSearch from './Components/advance-search/advance-search.component';
-// import NavBar from './Components/navigation-bar/navigation-bar.component';
+
+const API = "https://petadoption-284220.uc.r.appspot.com/pets/"// 'https://jsonplaceholder.typicode.com/users';
+
 class App extends Component{
   constructor(){
     super();
     this.state={
-      pet:[{'id':1,'name':'lu',email:'tliu1@macalester.edu'},
-      {'id':2,'name':'huahua',email:'tliu1@macalester.edu'},
-      {'id':3,'name':'tianrui',email:'tliu1@macalester.edu'}, 
-      {'id':3,'name':'tianrui',email:'tliu1@macalester.edu'},
-      {'id':3,'name':'tianrui',email:'tliu1@macalester.edu'}],
+      pet:[],
       searchField:''
     };
     
     this.handleChange=this.handleChange.bind(this);
   }
   componentDidMount(){
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then(response=>response.json())
-    .then(users=>this.setState({monsters:users}));
+    fetch(API)
+    .results//('https://jsonplaceholder.typicode.com/users')
+    .then(response=>console.log(response.json().data))
+    .then(pets=>this.setState({pet:pets}));
+    console.log("haaha")
+    console.log(this.state);
+    console.log("done")
+    console.log(fetch('https://petadoption-284220.uc.r.appspot.com/pets/'
+      // body:JSON.stringify(options)
+    ).then(function(res){ return res.json()}))
   }
+  
   handleChange=(e)=>{
     this.setState({searchField:e.target.value});
   };
@@ -52,12 +58,18 @@ class App extends Component{
     )
   return (
     <div>
-      
-      {/* <AdvanceSearch /> */}
-      {/* <NavBar /> */}
-
+      <BrowserRouter>
+      <Switch>
+          {/* <Route exact path = '/' component={App}/> */}
+          <Route exact path = '/shop' component = {ShopPage}/>
+        </Switch>
+      </BrowserRouter>
       <Navbar bg="light" expand="lg">
-  <Navbar.Brand href="#home">Adopt a pet</Navbar.Brand>
+  <Navbar.Brand href="#home">
+    {/* <Link to='/shop'> */}
+    Adopt a pet
+    {/* </Link> */}
+    </Navbar.Brand>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
@@ -75,8 +87,15 @@ class App extends Component{
     <NavDropdown title="My username" id="basic-nav-dropdown">
         <NavDropdown.Item href="#action/3.1">My favorites</NavDropdown.Item>
         <NavDropdown.Item href="#action/3.2">Trade Board</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.3">Browsing History</NavDropdown.Item>
-        <NavDropdown.Divider />
+        <NavDropdown.Item>  
+          <BrowserRouter>
+              <Switch>
+                <Route path = '/shop' component={ShopPage}> Browsing History</Route> 
+              </Switch>
+          </BrowserRouter>
+          {/* <Link to = {ShopPage}>Browsing History</Link> */}
+          </NavDropdown.Item>
+        <NavDropdown.Divider/>
         <NavDropdown.Item href="#action/3.4">Log out</NavDropdown.Item>
       </NavDropdown>
   </Navbar.Collapse>
