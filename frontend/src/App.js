@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import {Route} from 'react-router-dom';
 // import { Switch, Route } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
@@ -36,6 +37,7 @@ class App extends Component{
     
     this.handleChange=this.handleChange.bind(this);
   }
+
   componentDidMount(){
     fetch('https://jsonplaceholder.typicode.com/users')
     .then(response=>response.json())
@@ -57,10 +59,10 @@ class App extends Component{
       {/* <NavBar /> */}
 
       <Navbar bg="light" expand="lg">
-  <Navbar.Brand href="#home">Adopt a pet</Navbar.Brand>
-  <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="mr-auto">
+      <Navbar.Brand href="#home">Adopt a pet</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className="mr-auto">
     {/* <Route exact path='/' component={HomePage} /> */}
       {/* <Nav.Link exact path='/' component={ShopPage} >Home</Nav.Link>
       <Nav.Link href="#link">Link</Nav.Link> */}
