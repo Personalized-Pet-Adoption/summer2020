@@ -18,11 +18,13 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import { Route,Link, Switch, BrowserRouter, Router} from 'react-router-dom';
 // import { Link } from 'react-router';
 // import { DatePicker } from 'antd';
+
 // import { Row, Col } from 'antd';
 import Header from './Components/header/header.component.jsx';
 
-
-const API = "https://petadoption-284220.uc.r.appspot.com/pets/"// 'https://jsonplaceholder.typicode.com/users';
+// 'https://petadoption-284220.uc.r.appspot.com/pets/'// 
+const API = 'https://jsonplaceholder.typicode.com/users';
+const axios = require('axios').default;
 
 class App extends Component{
   constructor(){
@@ -34,17 +36,26 @@ class App extends Component{
     
     this.handleChange=this.handleChange.bind(this);
   }
+  loadAllPets = async ()=>{
+    let res = {};
+    const allRes = await axios.get(API);
+    console.log(allRes.data)
+  }
   componentDidMount(){
-    fetch(API)
-    .results//('https://jsonplaceholder.typicode.com/users')
-    .then(response=>console.log(response.json().data))
+    // let res = fetch(API).then(function(response) {
+    //   return response.json();
+    // }).then(function(myJson) {
+    //   console.log(myJson.results);
+    // });
+    
+    // let response = fetch(API).then(response=>response.json())
+    fetch(API)//('https://jsonplaceholder.typicode.com/users')
+    .then(response=>response.json())
     .then(pets=>this.setState({pet:pets}));
-    console.log("haaha")
     console.log(this.state);
-    console.log("done")
-    console.log(fetch('https://petadoption-284220.uc.r.appspot.com/pets/'
+    // console.log(fetch('https://petadoption-284220.uc.r.appspot.com/pets/'
       // body:JSON.stringify(options)
-    ).then(function(res){ return res.json()}))
+    // ).then(function(res){ return res.json()}))
   }
   
   handleChange=(e)=>{
