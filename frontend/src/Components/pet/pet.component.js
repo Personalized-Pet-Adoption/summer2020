@@ -23,12 +23,12 @@ export const Pet = props =>(
     </Card.Text>
   </Card.Body>
   <ListGroup className="list-group-flush">
-    <ListGroupItem>Age</ListGroupItem>
-    <ListGroupItem>Color</ListGroupItem>
-    <ListGroupItem>Adoption Price</ListGroupItem>
+    <ListGroupItem>{props.pet.species}</ListGroupItem>
+    <ListGroupItem>{props.pet.gender}</ListGroupItem>
+    <ListGroupItem>{props.pet.post_date}</ListGroupItem>
   </ListGroup>
   <Card.Body>
-    <Card.Link href="#">More Info</Card.Link>
+    <Card.Link href="/shop">More Info</Card.Link>
     <Card.Link href="#">Favorite</Card.Link>
   </Card.Body>
 </Card>

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Route} from 'react-router-dom';
-// import { Switch, Route } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -24,7 +23,7 @@ import { Link, Switch, BrowserRouter, Router} from 'react-router-dom';
 import Header from './Components/header/header.component.jsx';
 
 // 'https://petadoption-284220.uc.r.appspot.com/pets/'// 
-const API = 'https://jsonplaceholder.typicode.com/users';
+const API = 'https://petadoption-284220.uc.r.appspot.com/pets/';
 const axios = require('axios').default;
 
 class App extends Component{
@@ -42,22 +41,14 @@ class App extends Component{
     const allRes = await axios.get(API);
     console.log(allRes.data)
   }
-  componentDidMount(){
-    // let res = fetch(API).then(function(response) {
-    //   return response.json();
-    // }).then(function(myJson) {
-    //   console.log(myJson.results);
-    // });
-    
-    // let response = fetch(API).then(response=>response.json())
-    fetch(API)//('https://jsonplaceholder.typicode.com/users')
-    .then(response=>response.json())
-    .then(pets=>this.setState({pet:pets}));
-    console.log(this.state);
-    // console.log(fetch('https://petadoption-284220.uc.r.appspot.com/pets/'
-      // body:JSON.stringify(options)
-    // ).then(function(res){ return res.json()}))
+  componentDidMount (){
+    let res = fetch(API).then(function(response) {
+      return response.json();
+    })
+    .then( pets => 
+      this.setState({pet: pets.results}))
   }
+  
   
   handleChange=(e)=>{
     this.setState({searchField:e.target.value});
@@ -65,36 +56,27 @@ class App extends Component{
 
   render(){
     const {pet, searchField}=this.state;
+    console.log(pet)
     const filteredPet=pet.filter(pet=>
       pet.name.toLowerCase().includes(searchField.toLowerCase())
     )
   return (
     <div>
       <BrowserRouter>
-      <Switch>
+        <Switch>
           {/* <Route exact path = '/' component={App}/> */}
           <Route exact path = '/shop' component = {ShopPage}/>
         </Switch>
       </BrowserRouter>
       <Navbar bg="light" expand="lg">
   <Navbar.Brand href="#home">
-    {/* <Link to='/shop'> */}
     Adopt a pet
-    {/* </Link> */}
     </Navbar.Brand>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
-    {/* <Route exact path='/' component={HomePage} /> */}
-      {/* <Nav.Link exact path='/' component={ShopPage} >Home</Nav.Link>
-      <Nav.Link href="#link">Link</Nav.Link> */}
     </Nav>
     <Container>
-  {/* <Row>
-    <Col xs={6} md={4}>
-      <Image style={{width:"3rem"}} src="https://s3-eu-west-1.amazonaws.com/w3.cdn.gpd/gb.pedigree.55/large_53b66497-3a2d-420c-a567-b1e0ae5c5823.jpg" roundedCircle />
-    </Col>
-  </Row> */}
 </Container>
     <NavDropdown title="My username" id="basic-nav-dropdown">
         <NavDropdown.Item href="#action/3.1">My favorites</NavDropdown.Item>
@@ -153,6 +135,7 @@ class App extends Component{
         {/* <Route exact path='/' component={HomePage} /> */}
         {/* <Route path='/shop' component={ShopPage} /> */}
       {/* </Switch> */}
+
       <PetList pets = {filteredPet} />
     </div>
   );
