@@ -16,7 +16,7 @@ import {PetList} from './Components/pet-list/pet-list.component'
 import ShopPage from './pages/shop/shop.component.jsx';
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
-import { Route,Link, Switch, BrowserRouter, Router} from 'react-router-dom';
+import { Link, Switch, BrowserRouter, Router} from 'react-router-dom';
 // import { Link } from 'react-router';
 // import { DatePicker } from 'antd';
 
