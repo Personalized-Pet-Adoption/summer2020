@@ -1,30 +1,14 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import {Route} from 'react-router-dom';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 import './App.css';
-import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {QuickSearch} from './Components/quick-search/quick-search.component';
 import {PetList} from './Components/pet-list/pet-list.component'
 import ShopPage from './pages/shop/shop.component.jsx';
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown'
-import { Link, Switch, BrowserRouter, Router} from 'react-router-dom';
-// import { Link } from 'react-router';
-// import { DatePicker } from 'antd';
-
-// import { Row, Col } from 'antd';
+import { Link, Switch, BrowserRouter, Router, withRouter, Route} from 'react-router-dom';
+import {Navbar, Nav, NavDropdown, Button, Form, FormControl, Container, Dropdown} from 'react-bootstrap';
 import Header from './Components/header/header.component.jsx';
 
-// 'https://petadoption-284220.uc.r.appspot.com/pets/'// 
 const API = 'https://petadoption-284220.uc.r.appspot.com/pets/';
-const axios = require('axios').default;
 
 class App extends Component{
   constructor(){
@@ -35,11 +19,6 @@ class App extends Component{
     };
     
     this.handleChange=this.handleChange.bind(this);
-  }
-  loadAllPets = async ()=>{
-    let res = {};
-    const allRes = await axios.get(API);
-    console.log(allRes.data)
   }
   componentDidMount (){
     let res = fetch(API).then(function(response) {
@@ -64,8 +43,7 @@ class App extends Component{
     <div>
       <BrowserRouter>
         <Switch>
-          {/* <Route exact path = '/' component={App}/> */}
-          <Route exact path = '/shop' component = {ShopPage}/>
+          <Route exact path = '/shop' exact component = {ShopPage}/>
         </Switch>
       </BrowserRouter>
       <Navbar bg="light" expand="lg">
